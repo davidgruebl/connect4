@@ -1,0 +1,32 @@
+{
+  "name": "connect4",
+  "version": "1.0.0",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/davidgruebl/connect4/issues"
+  },
+  "dependencies": {
+    "lodash": "^3.3.0",
+    "react": "^0.12.2"
+  },
+  "devDependencies": {
+    "babelify": "^5.0.3",
+    "browserify": "^9.0.3",
+    "watchify": "^2.4.0"
+  },
+  "homepage": "https://github.com/davidgruebl/connect4",
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidgruebl/connect4.git"
+  },
+  "scripts": {
+    "build": "browserify js/app.jsx > js/bundle.js",
+    "watch": "watchify js/app.jsx -o js/bundle.js -v"
+  }
+}

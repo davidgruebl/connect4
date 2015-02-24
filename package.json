@@ -14,8 +14,10 @@
     "react": "^0.12.2"
   },
   "devDependencies": {
+    "babel": "^4.4.6",
     "babelify": "^5.0.3",
     "browserify": "^9.0.3",
+    "standard": "^2.7.3",
     "watchify": "^2.4.0"
   },
   "homepage": "https://github.com/davidgruebl/connect4",

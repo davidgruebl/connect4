@@ -4,6 +4,7 @@ var React = require('react')
 var _ = require('lodash')
 
 var Column = require('./column.jsx')
+var detectWin = require('./detect-win.js')
 
 var Field = React.createClass({
   getInitialState: function () {
@@ -35,6 +36,7 @@ var Field = React.createClass({
     })
 
     column.push(this.state.next)
+    detectWin(this.props.fills)
   },
 
   render: function () {

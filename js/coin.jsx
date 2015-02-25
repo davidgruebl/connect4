@@ -4,21 +4,16 @@ module.exports = React.createClass({
   render: function() {
     var styles = {
       position: 'absolute',
-      backgroundColor: 'white',
+      backgroundColor: this.props.player ? 'red' : 'yellow',
       top: 0,
       left: 0,
       borderRadius: '50%',
-      width: this.props.size,
-      height: this.props.size,
+      width: 100,
+      height: 100,
       transition: 'all 1s ease-in-out'
     }
-    console.log(styles, this.props)
-    var margin = this.props.margin
 
-    var x = margin + (this.props.col * (this.props.size + margin))
-    var y = margin + (this.props.row * (this.props.size + margin))
-
-    styles.transform = `translateX(${x}px) translateY(${y}px)`
+    styles.transform = `translateY(${this.props.top}px)`
 
     return <div style={styles}></div>
   }

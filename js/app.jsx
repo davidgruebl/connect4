@@ -3,36 +3,63 @@ require('babel/register')
 var React = require('react')
 var _ = require('lodash')
 
-var Coin = require('./coin.jsx')
+var Column = require('./column.jsx')
 
 var Field = React.createClass({
+  getInitialState: function () {
+    return {
+      next: 0
+    }
+  },
 
-  render: function() {
-    var self = this
-
-    var margin = this.props.margin || 20
-    var cellSize = 100
-
-    var style = {
-      position: 'relative',
-      backgroundColor: 'blue',
-      width: margin + this.props.cols * (cellSize + margin),
-      height: margin + this.props.rows * (cellSize + margin)
+  getDefaultProps: function () {
+    var props = {
+      cols: 7,
+      rows: 6
     }
 
-    var coins = _.map(_.range(0, this.props.cols * this.props.rows), function(val) {
-      var props = {
-        col: val % self.props.cols,
-        row: Math.floor(val / self.props.cols),
-        size: cellSize,
-        margin: margin
-      }
-
-      return <Coin {...props}/>
+    props.fills = _.map(_.range(0, props.cols), function () {
+      return []
     })
 
-    return <div style={style}>{coins}</div>
+    return props
+  },
+
+  addCoin: function (col) {
+    var column = this.props.fills[col]
+
+    if (column.length >= this.props.rows) return
+
+    this.setState({
+      next: this.state.next ? 0 : 1
+    })
+
+    column.push(this.state.next)
+  },
+
+  render: function () {
+    var self = this
+
+    let styles = {
+      width: 100 * this.props.cols,
+      height: 100 * this.props.rows,
+      backgroundColor: 'blue'
+    }
+
+    var cols = _.map(_.range(0, this.props.cols), function(idx) {
+      var props = {
+        rows: self.props.rows,
+        filled: self.props.fills[idx],
+        addCoin: self.addCoin.bind(self, idx)
+      }
+
+      return <Column {...props}/>
+    })
+
+    return <div style={styles}>
+      {cols}
+    </div>
   }
 })
 
-React.render(<Field cols="7" rows="6"/>, document.querySelector('body'))
+React.render(<Field/>, document.querySelector('body'))

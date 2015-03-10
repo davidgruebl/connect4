@@ -7,19 +7,19 @@ var Column = require('./column.jsx')
 var detectWin = require('./detect-win.js')
 
 var Field = React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return {
       next: 0
     }
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     var props = {
       cols: 7,
       rows: 6
     }
 
-    props.fills = _.map(_.range(0, props.cols), function () {
+    props.fills = _.map(_.range(0, props.cols), () => {
       return []
     })
 
@@ -52,7 +52,8 @@ var Field = React.createClass({
       var props = {
         rows: self.props.rows,
         filled: self.props.fills[idx],
-        addCoin: self.addCoin.bind(self, idx)
+        addCoin: self.addCoin.bind(self, idx),
+        key: idx
       }
 
       return <Column {...props}/>

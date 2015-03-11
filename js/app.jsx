@@ -1,6 +1,6 @@
 require('babel/register')
 
-var React = require('react')
+var React = require('react/addons')
 var _ = require('lodash')
 
 var Column = require('./column.jsx')
@@ -45,7 +45,7 @@ var Field = React.createClass({
     let styles = {
       width: 100 * this.props.cols,
       height: 100 * this.props.rows,
-      backgroundColor: 'blue'
+      border: '1px solid grey'
     }
 
     var cols = _.map(_.range(0, this.props.cols), function(idx) {
@@ -65,4 +65,4 @@ var Field = React.createClass({
   }
 })
 
-React.render(<Field/>, document.querySelector('body'))
+React.render(<Field/>, document.querySelector('#app'))

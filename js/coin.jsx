@@ -23,6 +23,6 @@ module.exports = React.createClass({
       height: 100,
       border: '1px solid grey'
     }
-    return <div style={styles} data-top={this.props.top} key={1}></div>
+    return <div style={styles} key={1}></div>
   }
 })

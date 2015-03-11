@@ -1,42 +1,53 @@
-require('babel/register')
-
 var React = require('react/addons')
 var _ = require('lodash')
+var io = require('socket.io-client')()
 
 var Column = require('./column.jsx')
 var detectWin = require('./detect-win.js')
 
-var Field = React.createClass({
+module.exports = React.createClass({
   getInitialState() {
-    return {
+    var state = {
       next: 0
     }
-  },
 
-  getDefaultProps() {
-    var props = {
-      cols: 7,
-      rows: 6
-    }
-
-    props.fills = _.map(_.range(0, props.cols), () => {
+    state.fills = _.map(_.range(0, this.props.cols), () => {
       return []
     })
 
-    return props
+    return state
+  },
+
+  getDefaultProps() {
+    return {
+      cols: 7,
+      rows: 6
+    }
+  },
+
+  componentWillMount() {
+    var self = this
+    io.on('addcoin', function (state) {
+      self.setState(state)
+    })
   },
 
   addCoin: function (col) {
-    var column = this.props.fills[col]
+    console.log(arguments)
+    debugger
+    if (this.props.id !== this.state.next) return
+
+    var column = this.state.fills[col]
 
     if (column.length >= this.props.rows) return
 
-    this.setState({
-      next: this.state.next ? 0 : 1
-    })
-
     column.push(this.state.next)
-    detectWin(this.props.fills)
+    this.state.next = (this.props.id + 1) % 2
+
+    io.emit('addcoin', this.state)
+    this.setState(this.state)
+
+    detectWin(this.state.fills)
   },
 
   render: function () {
@@ -51,7 +62,7 @@ var Field = React.createClass({
     var cols = _.map(_.range(0, this.props.cols), function(idx) {
       var props = {
         rows: self.props.rows,
-        filled: self.props.fills[idx],
+        filled: self.state.fills[idx],
         addCoin: self.addCoin.bind(self, idx),
         key: idx
       }
@@ -64,5 +75,3 @@ var Field = React.createClass({
     </div>
   }
 })
-
-React.render(<Field/>, document.querySelector('#app'))

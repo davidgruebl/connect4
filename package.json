@@ -10,8 +10,12 @@
     "url": "https://github.com/davidgruebl/connect4/issues"
   },
   "dependencies": {
+    "debug": "^2.1.2",
+    "express": "^4.12.2",
     "lodash": "^3.3.0",
-    "react": "^0.12.2"
+    "react": "^0.12.2",
+    "socket.io": "^1.3.5",
+    "socket.io-client": "^1.3.5"
   },
   "devDependencies": {
     "babel": "^4.4.6",
@@ -28,7 +32,10 @@
     "url": "https://github.com/davidgruebl/connect4.git"
   },
   "scripts": {
-    "build": "browserify js/app.jsx > js/bundle.js",
-    "watch": "watchify js/app.jsx -o js/bundle.js -v"
+    "build": "browserify js/index.js > public/bundle.js",
+    "watch": "watchify js/index.js -o public/bundle.js -v",
+    "prestart": "npm run build",
+    "start": "npm run start:express",
+    "start:express": "DEBUG=socket.io:*,connect4:* node index"
   }
 }

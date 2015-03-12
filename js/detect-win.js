@@ -14,7 +14,7 @@ module.exports = function (field) {
     return result === false ? player : result
   }, false)
 
-  if (winner !== false) console.log(`Player ${winner} won the Game!`)
+  if (winner !== false) return winner
 
   return false
 }

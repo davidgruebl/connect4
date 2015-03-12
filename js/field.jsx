@@ -4,6 +4,7 @@ var io = require('socket.io-client')()
 
 var Column = require('./column.jsx')
 var detectWin = require('./detect-win.js')
+var info = require('./info.jsx')
 
 module.exports = React.createClass({
   getInitialState() {
@@ -33,8 +34,6 @@ module.exports = React.createClass({
   },
 
   addCoin: function (col) {
-    console.log(arguments)
-    debugger
     if (this.props.id !== this.state.next) return
 
     var column = this.state.fills[col]
@@ -47,7 +46,7 @@ module.exports = React.createClass({
     io.emit('addcoin', this.state)
     this.setState(this.state)
 
-    detectWin(this.state.fills)
+    info(detectWin(this.state.fills))
   },
 
   render: function () {

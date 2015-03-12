@@ -8,7 +8,6 @@ var Field = require('./field.jsx')
 console.log('joined')
 
 io.on('start', function (game) {
-  console.log(game)
   React.render(<Field {...game}/>, document.querySelector('#app'))
 })
 

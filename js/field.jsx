@@ -4,7 +4,9 @@ var io = require('socket.io-client')()
 
 var Column = require('./column.jsx')
 var detectWin = require('./detect-win.js')
-var info = require('./info.jsx')
+var Status = require('./status.jsx')
+
+var winner = false
 
 module.exports = React.createClass({
   getInitialState() {
@@ -46,7 +48,8 @@ module.exports = React.createClass({
     io.emit('addcoin', this.state)
     this.setState(this.state)
 
-    info(detectWin(this.state.fills))
+    winner = detectWin(this.state.fills)
+      console.log(`field.jsx: ${winner}`)
   },
 
   render: function () {
@@ -71,6 +74,7 @@ module.exports = React.createClass({
 
     return <div style={styles}>
       {cols}
+      <Status next={this.state.next} curr={this.props.id} winner={winner}/>
     </div>
   }
 })

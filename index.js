@@ -1,6 +1,6 @@
 var http = require('http')
-var join = require('path').join
-
+var path = require('path')
+var url = require('url')
 var debug = require('debug')('connect4:index')
 var express = require('express')
 
@@ -8,20 +8,29 @@ var app = express()
 var server = http.Server(app)
 var io = require('socket.io')(server)
 
-app.use(express.static(join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')))
 
-var games = [[]]
-var current = 0
+var games = {}
 
-io.on('connection', function (socket) {
-  if (games[current].push(socket) < 2) return
-
-  startGame(games[current])
-  games[++current] = []
+server.listen(5000, function (request, response) {
+  debug('Listening on port %d', 5000)
+  debug(request)
 })
 
-server.listen(5000, function () {
-  debug('Listening on port %d', 5000)
+app.get('*', function(req, res) {
+  var gameid = url.parse(req.url, true).path
+  debug(gameid)
+
+  games[gameid] = games[gameid] || []
+
+  io.on('connection', function (socket) {
+    var playercount = games[gameid].push(socket)
+    if (playercount !== 2) return io.to(socket.id).emit(playercount > 2 ? 'full' : 'wait', playercount)
+
+    startGame(games[gameid])
+  })
+
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 function startGame (sockets) {

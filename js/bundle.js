@@ -1,1 +1,0 @@
-console.error("Error: Cannot find module '/Users/dtg/Projects/connect4/js/app.jsx' from '/Users/dtg/Projects/connect4'")

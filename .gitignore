@@ -7,4 +7,5 @@ pids
 
 node_modules
 
-public/bundle.js
+bundle.js
+.bundle.js

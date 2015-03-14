@@ -57,8 +57,7 @@ module.exports = React.createClass({
 
     let styles = {
       width: 100 * this.props.cols,
-      height: 100 * this.props.rows,
-      border: '1px solid grey'
+      height: 100 * this.props.rows
     }
 
     var cols = _.map(_.range(0, this.props.cols), function(idx) {

@@ -33,6 +33,7 @@
   },
   "scripts": {
     "build": "browserify js/index.js > public/bundle.js",
+    "copy": "scp -r index.js js/ public/ package.json root@178.62.249.245:/var/www/connect4",
     "watch": "watchify js/index.js -o public/bundle.js -v",
     "prestart": "npm run build",
     "start": "npm run start:express",

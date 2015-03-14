@@ -20,8 +20,7 @@ module.exports = React.createClass({
       transition: 'transform .5s cubic-bezier(0.85, 0, 1, 0.99)',
       borderRadius: '50%',
       width: 100,
-      height: 100,
-      border: '1px solid grey'
+      height: 100
     }
     return <div style={styles} key={1}></div>
   }

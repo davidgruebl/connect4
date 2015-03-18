@@ -1,6 +1,5 @@
 var React = require('react/addons')
 var _ = require('lodash')
-var io = require('socket.io-client')()
 
 var Column = require('./column.jsx')
 var detectWin = require('./detect-win.js')
@@ -30,7 +29,7 @@ module.exports = React.createClass({
 
   componentWillMount() {
     var self = this
-    io.on('addcoin', function (state) {
+    window.socket.on('addcoin', function (state) {
       self.setState(state)
     })
   },
@@ -45,7 +44,7 @@ module.exports = React.createClass({
     column.push(this.state.next)
     this.state.next = (this.props.id + 1) % 2
 
-    io.emit('addcoin', this.state)
+    window.socket.emit('addcoin', this.state)
     this.setState(this.state)
 
     winner = detectWin(this.state.fills)

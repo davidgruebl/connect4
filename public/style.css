@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v15/sTdaA6j0Psb920Vjv-mrzH-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+}
+
+body{
+  font-family: 'Roboto';
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.chat {
+  font-size: 16px;
+  line-height: 24px;
+  border: none;
+  outline: none;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+}
+
+.chat:focus {
+  border-bottom: 1px solid rgb(125,185,232);
+}

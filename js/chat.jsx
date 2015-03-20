@@ -10,7 +10,9 @@ var Messages = React.createClass({
   render() {
     var style = {
       overflow: 'scroll',
-      maxHeight: 200
+      maxHeight: 200,
+      fontSize: '16px',
+      lineHeight: '24px'
     }
 
     return  <div style={style}>
@@ -37,6 +39,10 @@ module.exports = React.createClass({
     this.setState({
       name: e.target.value.trim()
     })
+  },
+
+  handleHighlight(){
+
   },
 
   handleMesageChange(e) {
@@ -69,17 +75,21 @@ module.exports = React.createClass({
   },
 
   render() {
+    var style = {
+      overflow: 'scroll',
+      maxHeight: 200
+    }
+
     return <div>
       <div>
-        Your Name: <input type='text' value={this.state.name} onChange={this.handleNameChange} />
+        <input className='chat' type='text' placeholder="enter your name" onChange={this.handleNameChange} />
       </div>
 
       <Messages messages={this.state.messages}/>
 
-      <form onSubmit={this.handleMessageSubmit}>
-        New message:
-        <input name='text' type='text' value={this.state.message} onChange={this.handleMesageChange}/>
-        <input type='submit' />
+      <form onSubmit={this.handleMessageSubmit} onFocus={this.handleHighlight}>
+        <input className='chat' style={style} name='text' type='text' placeholder="type your message" value={this.state.message} onChange={this.handleMesageChange}/>
+        <input style={{display: 'none'}} type='submit' />
       </form>
     </div>
   }

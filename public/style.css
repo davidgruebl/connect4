@@ -27,3 +27,7 @@ h1 {
 .chat:focus {
   border-bottom: 1px solid rgb(125,185,232);
 }
+
+p {
+  display: inline;
+}

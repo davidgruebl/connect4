@@ -1,5 +1,6 @@
 var _ = require('lodash')
 var React = require('react')
+var markdown = require('markdown').markdown
 
 var Messages = React.createClass({
   componentWillUpdate() {
@@ -17,7 +18,7 @@ var Messages = React.createClass({
 
     return  <div style={style}>
       {this.props.messages.map((message) => {
-        return <div><em>{message.name}:</em> {message.text}</div>
+        return <div><em>{message.name}:</em> <span dangerouslySetInnerHTML={{__html: message.text}} /></div>
       })}
     </div>
   }
@@ -59,7 +60,7 @@ module.exports = React.createClass({
 
     var message = {
       name: this.state.name,
-      text: this.state.message
+      text: markdown.toHTML(this.state.message)
     }
 
     this.addMessage(message)
@@ -88,7 +89,7 @@ module.exports = React.createClass({
       <Messages messages={this.state.messages}/>
 
       <form onSubmit={this.handleMessageSubmit} onFocus={this.handleHighlight}>
-        <input className='chat' style={style} name='text' type='text' placeholder="type your message" value={this.state.message} onChange={this.handleMesageChange}/>
+        <input className='chat' style={style} name='text' type='text' placeholder="type your message, markdown is supported" value={this.state.message} onChange={this.handleMesageChange}/>
         <input style={{display: 'none'}} type='submit' />
       </form>
     </div>

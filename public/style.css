@@ -31,3 +31,7 @@ h1 {
 p {
   display: inline;
 }
+
+#app > div > div:hover > div:nth-child(2) > div:nth-child(1) {
+  background-image: radial-gradient(ellipse at center, lightgray 0%, lightgray 60%,rgba(125,185,232,1) 61%,rgba(125,185,232,1) 100%) !important;
+}

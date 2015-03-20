@@ -4,6 +4,7 @@ var _ = require('lodash')
 var Column = require('./column.jsx')
 var detectWin = require('./detect-win.js')
 var Status = require('./status.jsx')
+var Chat = require('./chat.jsx')
 
 var winner = false
 
@@ -28,10 +29,7 @@ module.exports = React.createClass({
   },
 
   componentWillMount() {
-    var self = this
-    window.socket.on('addcoin', function (state) {
-      self.setState(state)
-    })
+    this.props.socket.on('addcoin', this.setState.bind(this))
   },
 
   addCoin: function (col) {
@@ -44,7 +42,7 @@ module.exports = React.createClass({
     column.push(this.state.next)
     this.state.next = (this.props.id + 1) % 2
 
-    window.socket.emit('addcoin', this.state)
+    this.props.socket.emit('addcoin', this.state)
     this.setState(this.state)
 
     winner = detectWin(this.state.fills)
@@ -73,6 +71,7 @@ module.exports = React.createClass({
     return <div style={styles}>
       {cols}
       <Status next={this.state.next} curr={this.props.id} winner={winner}/>
+      <Chat socket={this.props.socket} id={this.props.id}/>
     </div>
   }
 })

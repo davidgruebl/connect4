@@ -57,9 +57,16 @@ function startGame (cid) {
     })
   })
 
+  io.on('new message', function (data) {
+    io.broadcast.emit('new message', {
+      message: data
+    })
+  })
+
   function disconnectHook (cb) {
     games[cid].players.forEach(function (s) {
       s.removeAllListeners('addcoin')
+      s.removeAllListeners('chatmessage')
       s.removeAllListeners('disconnect')
     })
     delete games[cid]
@@ -68,6 +75,10 @@ function startGame (cid) {
 
   pipeEvent(cid, 0, 1, 'addcoin')
   pipeEvent(cid, 1, 0, 'addcoin')
+
+  pipeEvent(cid, 0, 1, 'chatmessage')
+  pipeEvent(cid, 1, 0, 'chatmessage')
+
   pipeEvent(cid, 0, 1, 'disconnect', 'leave', disconnectHook)
   pipeEvent(cid, 1, 0, 'disconnect', 'leave', disconnectHook)
 }

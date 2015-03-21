@@ -40,7 +40,7 @@ module.exports = React.createClass({
       gutter.push(<div style={gutterStyle}></div>)
     })
 
-    return <div style={style} onClick={this.props.addCoin}>
+    return <div style={style} onClick={this.props.addCoin} className='col'>
       <div style={wrapperStyle}><ReactTransitionGroup>
         {coins}
       </ReactTransitionGroup></div>

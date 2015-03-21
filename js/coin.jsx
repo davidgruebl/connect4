@@ -1,4 +1,6 @@
 var React = require('react/addons')
+var _ = require('lodash')
+var coinStyle = require('./coin-style')
 
 module.exports = React.createClass({
   componentWillEnter(callback) {
@@ -11,17 +13,15 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var styles = {
+    var styles = _.assign(_.clone(coinStyle), {
       position: 'absolute',
       backgroundColor: this.props.player ? 'red' : 'yellow',
       top: 0,
       left: 0,
       transform: `translateY(${this.props.top}px)`,
-      transition: 'transform .5s cubic-bezier(0.85, 0, 1, 0.99)',
-      borderRadius: '50%',
-      width: 100,
-      height: 100
-    }
+      transition: 'transform .5s cubic-bezier(0.85, 0, 1, 0.99)'
+    })
+
     return <div style={styles} key={1}></div>
   }
 })

@@ -4,6 +4,7 @@ var _ = require('lodash')
 var Column = require('./column.jsx')
 var detectWin = require('./detect-win.js')
 var Status = require('./status.jsx')
+var Indicator = require('./indicator.jsx')
 var Chat = require('./chat.jsx')
 
 var winner = false
@@ -46,22 +47,19 @@ module.exports = React.createClass({
     this.setState(this.state)
 
     winner = detectWin(this.state.fills)
-      console.log(`field.jsx: ${winner}`)
   },
 
   render: function () {
-    var self = this
-
     let styles = {
-      width: 100 * this.props.cols,
-      height: 100 * this.props.rows
+      width: 100 * (this.props.cols + 1) + 20,
+      minHeight: 100 * this.props.rows
     }
 
-    var cols = _.map(_.range(0, this.props.cols), function(idx) {
+    var cols = _.map(_.range(0, this.props.cols), (idx) => {
       var props = {
-        rows: self.props.rows,
-        filled: self.state.fills[idx],
-        addCoin: self.addCoin.bind(self, idx),
+        rows: this.props.rows,
+        filled: this.state.fills[idx],
+        addCoin: this.addCoin.bind(this, idx),
         key: idx
       }
 
@@ -70,6 +68,16 @@ module.exports = React.createClass({
 
     return <div style={styles}>
       {cols}
+      <div style={{
+        position: 'relative',
+        float: 'left',
+        marginLeft: 20,
+        width: 100,
+        height: 100 * this.props.rows
+      }}>
+        <Indicator next={this.state.next} player={this.props.id} winner={winner}/>
+      </div>
+      <span style={{clear: 'both'}}></span>
       <Status next={this.state.next} curr={this.props.id} winner={winner}/>
       <Chat socket={this.props.socket} id={this.props.id}/>
     </div>

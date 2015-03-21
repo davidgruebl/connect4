@@ -35,3 +35,17 @@ p {
 .col:hover > div:nth-child(2) > div:nth-child(1) {
   background-image: radial-gradient(ellipse at center, lightgray 0%, lightgray 60%,rgba(125,185,232,1) 61%,rgba(125,185,232,1) 100%) !important;
 }
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-100px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}

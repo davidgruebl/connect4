@@ -10,7 +10,7 @@ module.exports = React.createClass({
       backgroundColor: this.props.player ? 'red' : 'yellow',
       bottom: '0'
     })
-    if (this.props.next === this.props.player) styles.animation = 'bounce 600ms infinite ease-in'
+    if (this.props.next === this.props.player) styles.WebkitAnimation = 'bounce 600ms infinite ease-in'
 
     return <div style={styles}></div>
   }

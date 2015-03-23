@@ -36,7 +36,7 @@ p {
   background-image: radial-gradient(ellipse at center, lightgray 0%, lightgray 60%,rgba(125,185,232,1) 61%,rgba(125,185,232,1) 100%) !important;
 }
 
-@keyframes bounce {
+@-webkit-keyframes bounce {
   0% {
     transform: translateY(0);
   }
